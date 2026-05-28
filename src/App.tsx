@@ -23,7 +23,7 @@ export default function App() {
   const isMobile = useMobile()
 
   useEffect(() => {
-    document.title = 'QuiteProcess'
+    document.title = 'Quite Progress'
   }, [])
 
   if (loading) {
@@ -45,7 +45,7 @@ export default function App() {
         {/* Logo */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginRight: 8, flexShrink: 0 }}>
           <img src="/logo.png" style={{ width: 28, height: 28, borderRadius: 8 }} />
-          {!isMobile && <span style={{ fontWeight: 700, color: 'white', fontSize: 14 }}>QuiteProcess</span>}
+          {!isMobile && <span style={{ fontWeight: 700, color: 'white', fontSize: 14 }}>Quite Progress</span>}
         </div>
 
         {/* Tabs */}

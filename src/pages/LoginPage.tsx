@@ -63,7 +63,7 @@ export default function LoginPage() {
         {/* Logo */}
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10, marginBottom: 32 }}>
           <img src="/logo.png" style={{ width: 40, height: 40, borderRadius: 12 }} />
-          <span style={{ fontWeight: 800, color: 'white', fontSize: 22 }}>QuiteProcess</span>
+          <span style={{ fontWeight: 800, color: 'white', fontSize: 22 }}>Quite Progress</span>
         </div>
 
         {/* ── Check email screen ── */}
