@@ -15,6 +15,7 @@ import { ChevronLeft, ChevronRight, Plus } from 'lucide-react'
 import { useHabits, useHabitLogs, useMindsetLogs } from '../hooks/useSupabase'
 import { useLang } from '../lib/i18n'
 import ConfirmModal from '../components/ConfirmModal'
+import MindsetChart from '../components/MindsetChart'
 import {
   LineChart,
   Line,
@@ -125,13 +126,6 @@ export default function HabitTrackerPage() {
     return { day: i + 1, pct: Math.round((done / habits.length) * 100) }
   })
 
-  // Mindset chart data
-  const mindsetData = mindsetLogs.map(ml => ({
-    date: format(parseISO(ml.date), 'd'),
-    mood: ml.mood,
-    motivation: ml.motivation,
-  }))
-
   // Build week structure: each week = { weekIdx, days[] }
   // weeks are calendar weeks (Sun-Sat) but clipped to the month
   type WeekGroup = { weekIdx: number; days: string[] }
@@ -164,7 +158,6 @@ export default function HabitTrackerPage() {
   }
 
   const LEFT_COL_WIDTH = 160
-  const DAY_COL_WIDTH = 26
   const PCT_COL_WIDTH = 50
 
   return (
@@ -416,11 +409,6 @@ export default function HabitTrackerPage() {
                     <span style={{ fontSize: 14 }}>{habit.emoji}</span>
                     <div style={{ overflow: 'hidden', flex: 1 }}>
                       <div style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', fontSize: 12 }}>{habit.name}</div>
-                      {habit.created_at && (
-                        <div style={{ fontSize: 10, color: '#334155', marginTop: 1 }}>
-                          {format(new Date(habit.created_at), 'dd/MM/yyyy')}
-                        </div>
-                      )}
                     </div>
                   </div>
                   <div style={{ flex: 1, display: 'flex' }}>
@@ -428,7 +416,6 @@ export default function HabitTrackerPage() {
                       const log = getLog(habit.id, d)
                       const done = log?.completed ?? false
                       const future = d > today
-                      const isToday = d === today
                       return (
                         <div key={d} style={{ flex: 1, display: 'flex', justifyContent: 'center' }}>
                           <button
@@ -475,8 +462,6 @@ export default function HabitTrackerPage() {
                 <div style={{ width: LEFT_COL_WIDTH, flexShrink: 0, color: '#475569', fontSize: 11, fontWeight: 600 }}>{t.total}</div>
                 <div style={{ flex: 1, display: 'flex' }}>
                   {dayTotals.map((count, i) => {
-                    const d = days[i]
-                    const isToday = d === today
                     return (
                       <div
                         key={i}
@@ -528,19 +513,10 @@ export default function HabitTrackerPage() {
       )}
 
       {/* ── Mental State chart ── */}
-      {mindsetData.length > 0 && (
+      {mindsetLogs.length > 0 && (
         <div style={{ ...card }}>
           <div style={{ color: '#94a3b8', fontWeight: 600, fontSize: 13, marginBottom: 10 }}>{t.mentalState}</div>
-          <ResponsiveContainer width="100%" height={120}>
-            <LineChart data={mindsetData} margin={{ top: 5, right: 8, bottom: 0, left: -20 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#1e2a3a" />
-              <XAxis dataKey="date" tick={{ fill: '#64748b', fontSize: 10 }} axisLine={false} tickLine={false} />
-              <YAxis domain={[1, 10]} tick={{ fill: '#64748b', fontSize: 9 }} axisLine={false} tickLine={false} />
-              <Tooltip contentStyle={{ background: '#131929', border: '1px solid #1e2a3a', borderRadius: 8, fontSize: 11 }} />
-              <Line type="monotone" dataKey="mood" stroke="#f472b6" strokeWidth={2} dot={false} name="Mood" />
-              <Line type="monotone" dataKey="motivation" stroke="#60a5fa" strokeWidth={2} dot={false} name="Motivation" />
-            </LineChart>
-          </ResponsiveContainer>
+          <MindsetChart logs={mindsetLogs} days={days} />
         </div>
       )}
 
