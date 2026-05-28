@@ -40,7 +40,7 @@ function CustomTooltip({ active, payload, label }: {
 export default function OverallProgressChart({ data }: { data: DataPoint[] }) {
   return (
     <ResponsiveContainer width="100%" height={130}>
-      <BarChart data={data} margin={{ top: 5, right: 0, bottom: 0, left: -35 }} barCategoryGap="25%">
+      <BarChart data={data} margin={{ top: 5, right: 0, bottom: 0, left: -20 }} barCategoryGap="25%">
         <XAxis dataKey="name" tick={{ fill: '#64748b', fontSize: 10 }} axisLine={false} tickLine={false} />
         <YAxis tick={{ fill: '#64748b', fontSize: 9 }} axisLine={false} tickLine={false} />
         <Tooltip content={<CustomTooltip />} cursor={{ fill: '#ffffff08' }} />

@@ -53,7 +53,7 @@ export default function MindsetChart({ logs, days }: Props) {
   return (
     <div>
       <ResponsiveContainer width="100%" height={130}>
-        <LineChart data={data} margin={{ top: 5, right: 5, bottom: 0, left: -35 }}>
+        <LineChart data={data} margin={{ top: 5, right: 5, bottom: 0, left: -20 }}>
           <XAxis dataKey="name" tick={{ fill: '#64748b', fontSize: 10 }} axisLine={false} tickLine={false} />
           <YAxis domain={[0, 10]} tick={{ fill: '#64748b', fontSize: 9 }} axisLine={false} tickLine={false} />
           <Tooltip content={<CustomTooltip />} cursor={{ stroke: '#ffffff15' }} isAnimationActive={false} />
