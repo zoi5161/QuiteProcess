@@ -41,7 +41,7 @@ export default function MindsetChart({ logs, days }: Props) {
   const data = days.map(day => {
     const log = logs.find(l => l.date === day)
     return {
-      name: format(parseISO(day), 'EEE'),
+      name: format(parseISO(day), 'd/M'),
       energy: log?.energy ?? null,
       focus: log?.focus ?? null,
       motivation: log?.motivation ?? null,
